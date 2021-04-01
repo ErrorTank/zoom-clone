@@ -1,0 +1,72 @@
+{
+  "name": "concept_ai",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "cross-env NODE_OPTIONS=--max-old-space-size=10000 NODE_ENV=development webpack-dev-server --progress --config ./config/webpack/dev.js",
+    "build": "cross-env NODE_ENV=production webpack --progress --colors --config ./config/webpack/prod.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ErrorTank/concept_ai.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ErrorTank/concept_ai/issues"
+  },
+  "homepage": "https://github.com/ErrorTank/concept_ai#readme",
+  "dependencies": {
+    "@babel/core": "^7.4.3",
+    "@babel/polyfill": "^7.12.1",
+    "@babel/runtime": "^7.4.3",
+    "history": "^4.9.0",
+    "lodash": "^4.17.14",
+    "moment": "^2.24.0",
+    "moment-timezone": "^0.5.31",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0",
+    "uuid": "^3.3.3"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/plugin-proposal-optional-chaining": "^7.2.0",
+    "@babel/plugin-proposal-throw-expressions": "^7.2.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/plugin-transform-runtime": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-react": "^7.0.0",
+    "@tailwindcss/jit": "^0.1.18",
+    "preload-webpack-plugin": "^3.0.0-beta.3",
+    "autoprefixer": "^10.2.5",
+    "babel-loader": "^8.0.6",
+    "case-sensitive-paths-webpack-plugin": "^2.2.0",
+    "clean-webpack-plugin": "^3.0.0",
+    "compression-webpack-plugin": "^5.0.2",
+    "copy-webpack-plugin": "^5.1.1",
+    "cross-env": "^5.2.0",
+    "css-loader": "^3.1.0",
+    "dotenv": "^8.2.0",
+    "file-loader": "^4.1.0",
+    "html-webpack-inline-source-plugin": "0.0.10",
+    "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^1.4.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.4",
+    "postcss": "^8.2.9",
+    "postcss-import": "^14.0.0",
+    "postcss-loader": "^4.2.0",
+    "postcss-preset-env": "^6.7.0",
+    "style-loader": "^0.23.1",
+    "svg-react-loader": "^0.4.6",
+    "tailwindcss": "^2.0.4",
+    "url-loader": "^2.1.0",
+    "webpack": "4.46.0",
+    "webpack-bundle-analyzer": "^3.3.2",
+    "webpack-cli": "^3.3.6",
+    "webpack-dev-server": "3.11.2",
+    "webpack-merge": "^4.2.1"
+  }
+}
