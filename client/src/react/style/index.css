@@ -1,4 +1,18 @@
+$blue: #056ef0;
+$column: 200px;
+
 *{
-    color: red;
-    font-size: 20px;
+	color: red;
+	p{
+		color: blue;
+		&.ok{
+			color: green;
+			font-size: 20px;
+			width: calc(4 * $column);
+		}
+	}
+}
+
+::placeholder {
+	color: gray;
 }

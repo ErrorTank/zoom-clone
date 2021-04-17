@@ -1,6 +1,6 @@
 const merge = require("webpack-merge");
 const webpack = require("webpack");
-const dotenv = require("dotenv");
+const glob = require("glob");
 const { join } = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
@@ -12,14 +12,7 @@ const InlineSourcePlugin = require("html-webpack-inline-source-plugin");
 const PreloadWebpackPlugin = require("preload-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
-
-const env = dotenv.config({ path: join(__dirname, "../../env/prod.env") })
-  .parsed;
-
-const envKeys = Object.keys(env).reduce((prev, next) => {
-  prev[`process.env.${next}`] = JSON.stringify(env[next]);
-  return prev;
-}, {});
+const PurgecssPlugin = require("purgecss-webpack-plugin");
 
 const {
   PATH_PUBLIC,
@@ -43,6 +36,20 @@ module.exports = merge(COMMON_CONFIG, {
     concatenateModules: true,
     splitChunks: {
       chunks: "all",
+      maxInitialRequests: Infinity,
+      minSize: 0,
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name(module) {
+            const packageName = module.context.match(
+              /[\\/]node_modules[\\/](.*?)([\\/]|$)/
+            )[1];
+            return `npm.${packageName.replace("@", "")}`;
+          },
+          chunks: "all",
+        },
+      },
     },
     minimizer: [
       new TerserPlugin({
@@ -104,7 +111,6 @@ module.exports = merge(COMMON_CONFIG, {
     ],
   },
   plugins: [
-    new webpack.DefinePlugin(envKeys),
     new CleanWebpackPlugin(),
     new CopyWebpackPlugin([{ from: PATH_PUBLIC, to: PATH_DIST }], {
       ignore: "index.html",
@@ -141,6 +147,9 @@ module.exports = merge(COMMON_CONFIG, {
     new MiniCssExtractPlugin({
       filename: "static/css/[name].[contenthash].css",
       chunkFilename: "static/css/[name].[contenthash].chunk.css",
+    }),
+    new PurgecssPlugin({
+      paths: glob.sync(`${PATH_SRC}/**/*`, { nodir: true }),
     }),
     new webpack.HashedModuleIdsPlugin(),
     new CompressionPlugin({

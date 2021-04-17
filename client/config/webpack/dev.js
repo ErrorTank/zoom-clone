@@ -1,16 +1,9 @@
 const merge = require("webpack-merge");
 const webpack = require("webpack");
-const dotenv = require("dotenv");
 const { join } = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const CaseSensitivePathsPlugin = require("case-sensitive-paths-webpack-plugin");
-const env = dotenv.config({ path: join(__dirname, "../../env/dev.env") }).parsed;
-
-const envKeys = Object.keys(env).reduce((prev, next) => {
-  prev[`process.env.${next}`] = JSON.stringify(env[next]);
-  return prev;
-}, {});
 
 const {
   PATH_PUBLIC,
@@ -57,7 +50,6 @@ module.exports = merge(COMMON_CONFIG, {
     ],
   },
   plugins: [
-    new webpack.DefinePlugin(envKeys),
     new CopyWebpackPlugin([{ from: PATH_PUBLIC, to: PATH_BUILD }], {
       ignore: "index.html",
     }),
